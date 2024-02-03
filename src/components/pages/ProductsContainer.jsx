@@ -6,11 +6,9 @@ import UserInformation from "../common/UserInformation"
 import Pagination from "../common/Pagination"
 
 const ProductsContainer = () => {
-  const [info, setInfo] = useState({})
-  const [totalPages, setTotalPages] = useState({})
-  
   const {user} = useContext(UserContext)
   const {products, setProducts} = useContext(CartContext)
+
   useEffect(() => {
     console.log('User information en products:', user);
   }, [user]);
@@ -20,10 +18,7 @@ const ProductsContainer = () => {
         withCredentials: true,
       })
       .then(res => {
-        //console.log("res: ", res);
-        setInfo(res.data);
         setProducts(res.data.payload);
-        setTotalPages(res.data.totalPages)
       })
       .catch((error) => console.error('Error fetching products:', error));
     

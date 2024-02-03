@@ -11,10 +11,6 @@ const UserContextProvider = ({ children }) => {
       setUser(userData);
     }
   }, []);
-  //-------- Guardar el user en el Local Storage cuando cambie --------
-  useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(user));
-  }, [user]);
   // ----- Local Storage -----
   document.addEventListener("DOMContentLoaded", () => {
     let userLocal = JSON.parse(localStorage.getItem("user"));

@@ -7,7 +7,7 @@ import { CartContext } from '../../context/CartContext';
 const Login = () => {
   const navigate = useNavigate();
   const {user, setUser} = useContext(UserContext)
-  const {cart, setCart} = useContext(CartContext)
+  const {cart, setCart, getProductsFromCart} = useContext(CartContext)
   const [input, setInput] = useState({
     email: '',
     password: '',
@@ -36,16 +36,7 @@ const Login = () => {
         return userData;
       });
         // Cargar el carrito desde DB al cargar la app
-        await axios.get(`http://localhost:8080/api/carts/${user.cart}`, {
-          withCredentials: true, credentials: 'include'
-        })
-            .then(res => { 
-              console.log('cart:' + JSON.stringify(res.data.payload.products,null,2));
-              setCart(res.data.payload.products, () => {
-                localStorage.setItem("cart", JSON.stringify(cart));
-              })
-            })
-            .catch(err => alert(`Ocurrió un error :(\n${err}`))
+        getProductsFromCart()
       
       navigate('/products')
     } catch (error) {
