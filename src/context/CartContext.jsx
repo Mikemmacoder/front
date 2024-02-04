@@ -53,16 +53,18 @@ const CartContextProvider = ({ children }) => {
   }
 
   const getProductsFromCart = async () => {
-    await axios.get(`http://localhost:8080/api/carts/${user.cart}`, {
-          withCredentials: true, credentials: 'include'
-    })
-    .then(res => { 
-      console.log('cart:' + JSON.stringify(res.data.payload.products,null,2));
-      setCart(res.data.payload.products, () => {
-        localStorage.setItem("cart", JSON.stringify(cart));
+    if(user.role !== 'admin'){
+      await axios.get(`http://localhost:8080/api/carts/${user.cart}`, {
+            withCredentials: true, credentials: 'include'
       })
-    })
-    .catch(err => alert(`Ocurrió un error :(\n${err}`))
+      .then(res => { 
+        console.log('cart:' + JSON.stringify(res.data.payload.products,null,2));
+        setCart(res.data.payload.products, () => {
+          localStorage.setItem("cart", JSON.stringify(cart));
+        })
+      })
+      .catch(err => alert(`Ocurrió un error :(\n${err}`))
+    }
   }
   const deleteProdFromCart = (pid) => {
     pid === undefined && alert("ID del producto no definido. No se puede eliminar.");

@@ -6,6 +6,7 @@ import CartContextProvider from './context/CartContext.jsx';
 import UsertContextProvider from './context/UserContext.jsx';
 import ProductsContainer from './components/pages/ProductsContainer.jsx';
 import Cart from './components/pages/Cart.jsx';
+import AdminProducts from './components/pages/AdminProducts.jsx';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
               <Route path='/forget-password' element={<ForgotPassword />}/>
               <Route path='/products' element={<ProductsContainer/>}/>
               <Route path='/carts/:cid' element={<Cart/>}/>
+              <Route path='/products/realtimeproducts' element={<AdminProducts/>}/>
             </Routes>
         </CartContextProvider>
       </UsertContextProvider>
