@@ -14,7 +14,7 @@ const UserInformation = () => {
         <Link to="/">Logout</Link>
         { user.role === "admin" && 
             <>
-                <strong><Link to="/">Administrar productos</Link></strong>
+                <strong><Link to="/products/realtimeproducts">Administrar productos</Link></strong>
                 <strong><Link to="/">Administrar usuarios</Link></strong>
             </>
         }
