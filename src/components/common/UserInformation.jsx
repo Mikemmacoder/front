@@ -22,7 +22,7 @@ const UserInformation = () => {
             <>
                 <strong><Link to={`/Carts/${user.cart}`}>Cart</Link></strong>
                 <strong><Link to="/">Chat</Link></strong>
-                <strong><Link to="/">Administrar productos</Link></strong>
+                <strong><Link to="/products/realtimeproducts">Administrar productos</Link></strong>
             </>
         }
         { user.role === "user" && 

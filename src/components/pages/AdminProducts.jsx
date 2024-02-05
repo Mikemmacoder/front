@@ -1,12 +1,15 @@
 import ProductRegistration from "../common/ProductRegistration"
-import ProductList from "../common/ProductsList"
+import ProductListAdmin from "../common/ProductsListAdmin"
 import ModalEditProduct from "../common/ModalEditProduct";
 import { useState, useContext, useEffect } from "react";
 import { CartContext } from "../../context/CartContext";
 import axios from "axios";
+import ProductListPremium from "../common/ProductsListPremium";
+import { UserContext } from "../../context/UserContext";
 
 const AdminProducts = () => {
   const {products, setProducts} = useContext(CartContext);
+  const {user} = useContext(UserContext)
 
 // Cargar productos
   useEffect(() => {
@@ -49,9 +52,10 @@ const AdminProducts = () => {
 
 const handleEditProduct = async (editedProduct) => {
   try {
-    const response = await axios.put(`http://localhost:8080/api/products/${editedProduct.id}`, editedProduct, {
+    const response = await axios.put(`http://localhost:8080/api/products/${editedProduct._id}`, editedProduct, {
       withCredentials: true, credentials: 'include'
     });
+    console.log(response)
     if (response.status === 200) {
       const editedIndex = products.findIndex((product) => product.id === editedProduct.id);
       setProducts((prevProducts) => [
@@ -73,7 +77,9 @@ const handleEditProduct = async (editedProduct) => {
   return (
     <div>
         <ProductRegistration/>
-        <ProductList handleEditClick={handleEditClick} deleteProduct={deleteProduct}/>
+        {user.role === "admin" ? 
+          <ProductListAdmin handleEditClick={handleEditClick} deleteProduct={deleteProduct}/> 
+          : <ProductListPremium handleEditClick={handleEditClick} deleteProduct={deleteProduct}/>}
         {isModalOpen && (
           <ModalEditProduct
             product={selectedProduct}

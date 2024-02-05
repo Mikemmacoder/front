@@ -1,13 +1,13 @@
 import React, { useEffect, useContext } from "react";
 import { CartContext } from "../../context/CartContext";
-import { UserContext } from "../../context/UserContext";
 
-const ProductList = ({handleEditClick, deleteProduct}) => {
-  const {products, setProducts} = useContext(CartContext);
-  const {user} = useContext(UserContext);
-
-
+const ProductListAdmin = ({handleEditClick, deleteProduct}) => {
+  const {products} = useContext(CartContext);
+  if (products.length == 0){
+    return <p>No hay productos publicados</p>
+  }
   return (
+    
     <div>
       <table id="realProductsTable">
         <thead>
@@ -20,6 +20,7 @@ const ProductList = ({handleEditClick, deleteProduct}) => {
             <td>Código</td>
             <td>Categoría</td>
             <td>Status</td>
+            <td>Propietario</td>
           </tr>
         </thead>
         <tbody>
@@ -35,6 +36,7 @@ const ProductList = ({handleEditClick, deleteProduct}) => {
               <td>{product.code}</td>
               <td>{product.category}</td>
               <td>{product.status}</td>
+              <td>{product.owner}</td>
               <td>
                 <button onClick={() => handleEditClick(product)}>Editar</button>
               </td>
@@ -46,4 +48,4 @@ const ProductList = ({handleEditClick, deleteProduct}) => {
   );
 };
 
-export default ProductList;
+export default ProductListAdmin;
