@@ -36,7 +36,7 @@ const Login = () => {
         return userData;
       });
         // Cargar el carrito desde DB al cargar la app
-        getProductsFromCart()
+        user.role !== 'admin' && getProductsFromCart()
       
       navigate('/products')
     } catch (error) {

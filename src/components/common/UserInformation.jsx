@@ -15,7 +15,7 @@ const UserInformation = () => {
         { user.role === "admin" && 
             <>
                 <strong><Link to="/products/realtimeproducts">Administrar productos</Link></strong>
-                <strong><Link to="/">Administrar usuarios</Link></strong>
+                <strong><Link to="/users">Administrar usuarios</Link></strong>
             </>
         }
         { user.role === "premium" && 

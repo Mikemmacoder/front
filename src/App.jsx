@@ -7,6 +7,7 @@ import UsertContextProvider from './context/UserContext.jsx';
 import ProductsContainer from './components/pages/ProductsContainer.jsx';
 import Cart from './components/pages/Cart.jsx';
 import AdminProducts from './components/pages/AdminProducts.jsx';
+import UsersAdministration from './components/pages/UsersAdministration.jsx';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
               <Route path='/products' element={<ProductsContainer/>}/>
               <Route path='/carts/:cid' element={<Cart/>}/>
               <Route path='/products/realtimeproducts' element={<AdminProducts/>}/>
+              <Route path='/users' element={<UsersAdministration/>}/>
             </Routes>
         </CartContextProvider>
       </UsertContextProvider>
