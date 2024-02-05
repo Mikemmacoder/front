@@ -1,14 +1,16 @@
 import React, { useEffect, useContext } from "react";
 import { CartContext } from "../../context/CartContext";
+import { PaginationContext } from "../../context/PaginationContext";
 
 const ProductListAdmin = ({handleEditClick, deleteProduct}) => {
   const {products} = useContext(CartContext);
+  const {paginateItems, renderPaginateButtons} = useContext(PaginationContext)//Paginate
+  const paginate = paginateItems(products)
   if (products.length == 0){
     return <p>No hay productos publicados</p>
   }
   return (
-    
-    <div>
+    <div id="products-user-admin">
       <table id="realProductsTable">
         <thead>
           <tr>
@@ -24,7 +26,7 @@ const ProductListAdmin = ({handleEditClick, deleteProduct}) => {
           </tr>
         </thead>
         <tbody>
-          {products.map((product) => (
+          {paginate.itemsPagina.map((product) => (
             <tr key={product._id}>
               <td>
                 <button onClick={() => deleteProduct(product._id)}>Eliminar</button>
@@ -44,6 +46,10 @@ const ProductListAdmin = ({handleEditClick, deleteProduct}) => {
           ))}
         </tbody>
       </table>
+      <div>{/* Renderizar botones de paginación, parámetros: totalPaginas y containerID */
+          renderPaginateButtons(paginate.totalPaginas, "products-user-admin") 
+        }
+      </div>
     </div>
   );
 };

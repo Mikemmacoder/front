@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { PaginationContext } from '../../context/PaginationContext';
 
 const UsersAdministration = () => {
     const [users, setUsers] = useState([]);
@@ -8,6 +9,8 @@ const UsersAdministration = () => {
     const [email, setEmail] = useState("");
     const [age, setAge] = useState(0);
     const [role, setRole] = useState("user");
+    const {paginateItems, renderPaginateButtons} = useContext(PaginationContext)
+
 
     const getUsers = async () =>{
         const response = await axios.get('http://localhost:8080/api/users', {withCredentials: true, credentials: 'include'})
@@ -71,7 +74,8 @@ const UsersAdministration = () => {
     };
 
     const handleRoleChange = (event) => setRole(event.target.value);
-  
+    
+    const paginate = paginateItems(users)
     return (
       <div>
         <p>
@@ -130,7 +134,7 @@ const UsersAdministration = () => {
               </tr>
             </thead>
             <tbody id="u_tbody">
-              {users.map((user) => (
+              {paginate.itemsPagina.map((user) => (
                 <tr key={user._id}>
                   <td>{user.name}</td>
                   <td>{user.email}</td>
@@ -152,6 +156,9 @@ const UsersAdministration = () => {
           </table>
         )}
         <button onClick={delInactiveUsers }>Eliminar usuarios inactivos</button>
+        <div>{/* Renderizar botones de paginación, parámetros: totalPaginas y containerID */
+        renderPaginateButtons(paginate.totalPaginas, "tablaUsers")}
+        </div>
       </div>
     );
 }

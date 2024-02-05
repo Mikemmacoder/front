@@ -3,6 +3,7 @@ import Register from './components/pages/Register.jsx';
 import ForgotPassword from './components/pages/ForgotPassword.jsx';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import CartContextProvider from './context/CartContext.jsx';
+import PaginationContextProvider from './context/PaginationContext.jsx';
 import UsertContextProvider from './context/UserContext.jsx';
 import ProductsContainer from './components/pages/ProductsContainer.jsx';
 import Cart from './components/pages/Cart.jsx';
@@ -15,6 +16,7 @@ function App() {
     <BrowserRouter>
       <UsertContextProvider> 
         <CartContextProvider> 
+          <PaginationContextProvider>
             <Routes>
               <Route path='/' element={<Login />}/>
               <Route path='/register' element={<Register />}/>
@@ -24,6 +26,7 @@ function App() {
               <Route path='/products/realtimeproducts' element={<AdminProducts/>}/>
               <Route path='/users' element={<UsersAdministration/>}/>
             </Routes>
+            </PaginationContextProvider>
         </CartContextProvider>
       </UsertContextProvider>
     </BrowserRouter>

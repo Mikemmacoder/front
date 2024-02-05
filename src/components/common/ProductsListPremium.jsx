@@ -1,17 +1,21 @@
 import React, { useEffect, useContext } from "react";
 import { CartContext } from "../../context/CartContext";
 import { UserContext } from "../../context/UserContext";
+import { PaginationContext } from "../../context/PaginationContext";
 
 const ProductListPremium = ({handleEditClick, deleteProduct}) => {
   const {products} = useContext(CartContext);
   const {user} = useContext(UserContext);
 
+  const {paginateItems, renderPaginateButtons} = useContext(PaginationContext)//Paginate
   const productsPremium = products.filter((elemento) => elemento.owner === user.email);
+  const paginate = paginateItems(productsPremium)//Paginate
+  console.log('paginate.totalPaginas' + JSON.stringify(paginate.totalPaginas, null, 2))
   if (productsPremium.length == 0){
     return <p>Aún no has publicado productos</p>
   }
     return (
-      <div>
+      <div id="products-user-premium">
         <h2>Productos publicados</h2>
         <table id="realProductsTable">
           <thead>
@@ -27,9 +31,7 @@ const ProductListPremium = ({handleEditClick, deleteProduct}) => {
             </tr>
           </thead>
           <tbody>
-            {
-              
-            productsPremium.map((product) => (
+            {paginate.itemsPagina.map((product) => (
               <tr key={product._id}>
                 <td>
                   <button onClick={() => deleteProduct(product._id)}>Eliminar</button>
@@ -48,6 +50,12 @@ const ProductListPremium = ({handleEditClick, deleteProduct}) => {
             ))}
           </tbody>
         </table>
+        <div>{/* Renderizar botones de paginación, parámetros: totalPaginas y containerID */
+        paginate.totalPages >1 && paginate.totalPages!== 'undefined' ?
+          renderPaginateButtons(paginate.totalPaginas, "products-user-premium") : null
+         
+        }
+      </div>
       </div>
     );
   }

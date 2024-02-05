@@ -3,12 +3,12 @@ import axios from "axios"
 import { UserContext } from "../../context/UserContext"
 import { CartContext } from "../../context/CartContext"
 import UserInformation from "../common/UserInformation"
-import Pagination from "../common/Pagination"
+import Products from "../common/Products"
 
 const ProductsContainer = () => {
   const {user} = useContext(UserContext)
   const {products, setProducts} = useContext(CartContext)
-
+  
   useEffect(() => {
     console.log('User information en products:', user);
   }, [user]);
@@ -18,7 +18,9 @@ const ProductsContainer = () => {
         withCredentials: true,
       })
       .then(res => {
-        setProducts(res.data.payload);
+        setProducts(res.data.payload,  () => {
+          console.log('productos cargados: ' + JSON.stringify(products,null,2))
+        });
       })
       .catch((error) => console.error('Error fetching products:', error));
     
@@ -28,23 +30,10 @@ const ProductsContainer = () => {
       console.log('products: ', products);
   }, [products])
   
-
-/* 
-  const createProduct = ()=>{
-    let newProduct = {
-      title: 'Mikemma',
-      description: 'coder',
-      price: 7500,
-      stock: 8,
-      status: true,
-      category: 'coder',
-    }
-    let data = axios.post('https://jsonplaceholder.typicode.com/posts', newProduct)
-  } */
   return (
     <div>
       <UserInformation />
-      <Pagination products={products} />
+      <Products/>
     </div>
   )
 }
