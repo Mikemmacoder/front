@@ -9,7 +9,7 @@ const UserInformation = () => {
     <div>
         {!user && <p>Loading...</p>}
         <p>{user.first_name} {user.last_name}</p>
-        <Link to="/">{user.email}</Link> 
+        <Link to="/profile">{user.email}</Link> 
         <p>Role: {user.role}</p>
         <Link to="/">Logout</Link>
         { user.role === "admin" && 
