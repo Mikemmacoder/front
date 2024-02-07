@@ -28,6 +28,7 @@ const Login = () => {
         headers: { 'Content-Type': 'application/json' },
         withCredentials: true,
       });
+      /* console.log('result: ' + JSON.stringify(result, null, 2)) */
       const {_id, first_name, last_name, email, role, cart } = result.data
       const userData = {_id, first_name, last_name, email, role, cart}
       setUser(prevUser => {

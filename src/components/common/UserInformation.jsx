@@ -1,9 +1,11 @@
 import { useContext, useEffect } from "react"
 import { UserContext } from "../../context/UserContext"
 import { Link } from "react-router-dom"
+import { LogoutContext } from "../../context/LogoutContext"
 
 const UserInformation = () => {
     const {user, setUser} = useContext(UserContext)
+    const {logout} = useContext(LogoutContext)
       
   return (
     <div>
@@ -11,7 +13,7 @@ const UserInformation = () => {
         <p>{user.first_name} {user.last_name}</p>
         <Link to="/profile">{user.email}</Link> 
         <p>Role: {user.role}</p>
-        <Link to="/">Logout</Link>
+        <button onClick={logout}>Logout</button>
         { user.role === "admin" && 
             <>
                 <strong><Link to="/products/realtimeproducts">Administrar productos</Link></strong>

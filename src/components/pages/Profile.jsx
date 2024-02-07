@@ -1,8 +1,11 @@
 import { useContext } from "react"
 import { UserContext } from "../../context/UserContext"
+import { LogoutContext } from "../../context/LogoutContext"
 import { Link } from "react-router-dom"
+
 const Profile = () => {
     const {user} = useContext(UserContext)
+    const {logout} = useContext(LogoutContext)
   return (
 
     <div>
@@ -21,7 +24,7 @@ const Profile = () => {
         | 
         {user.role !== "admin" && <Link to={`/carts/${user.cart}`}>Cart</Link> }
         
-        <Link>[Logout]</Link>
+        <button onClick={logout}>Logout</button>
         </div>
     </div>
   )

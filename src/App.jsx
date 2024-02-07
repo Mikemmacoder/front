@@ -10,6 +10,7 @@ import Cart from './components/pages/Cart.jsx';
 import AdminProducts from './components/pages/AdminProducts.jsx';
 import UsersAdministration from './components/pages/UsersAdministration.jsx';
 import Profile from './components/pages/Profile.jsx';
+import LogoutContextProvider from './context/LogoutContext.jsx';
 
 
 function App() {
@@ -18,17 +19,19 @@ function App() {
       <UsertContextProvider> 
         <CartContextProvider> 
           <PaginationContextProvider>
-            <Routes>
-              <Route path='/' element={<Login />}/>
-              <Route path='/register' element={<Register />}/>
-              <Route path='/forget-password' element={<ForgotPassword />}/>
-              <Route path='/products' element={<ProductsContainer/>}/>
-              <Route path='/carts/:cid' element={<Cart/>}/>
-              <Route path='/products/realtimeproducts' element={<AdminProducts/>}/>
-              <Route path='/users' element={<UsersAdministration/>}/>
-              <Route path='/profile' element={<Profile/>}/>
-            </Routes>
-            </PaginationContextProvider>
+            <LogoutContextProvider>
+              <Routes>
+                <Route path='/' element={<Login />}/>
+                <Route path='/register' element={<Register />}/>
+                <Route path='/forget-password' element={<ForgotPassword />}/>
+                <Route path='/products' element={<ProductsContainer/>}/>
+                <Route path='/carts/:cid' element={<Cart/>}/>
+                <Route path='/products/realtimeproducts' element={<AdminProducts/>}/>
+                <Route path='/users' element={<UsersAdministration/>}/>
+                <Route path='/profile' element={<Profile/>}/>
+              </Routes>
+            </LogoutContextProvider>
+          </PaginationContextProvider>
         </CartContextProvider>
       </UsertContextProvider>
     </BrowserRouter>
